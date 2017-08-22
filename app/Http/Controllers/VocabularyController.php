@@ -33,6 +33,7 @@ class VocabularyController extends Controller
         ];
         if (in_array($request->word_type, ['kanji_word', 'kana_word', 'viet_word']))
             $wordType = $request->word_type;
+        else $wordType = 'kana_word';
         $vocabularies = $this->business->getVocabuluryByParams($filter)->shuffle();
         return view('vocabulary.index', compact('vocabularies', 'wordType'));
     }
