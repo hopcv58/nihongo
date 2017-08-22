@@ -22,12 +22,13 @@
                             <div class="item">
                                 <div class="alert alert-info flashcard"
                                      style="margin-bottom: 0px;font-size: 50px; display:block; height: 200px;text-align: center; padding-top: 50px">
-                                    {{$vocabulary['kana_word']}}
+                                    {{$vocabulary[$wordType]}}
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next" id = "startTimer">
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next"
+                       id="startTimer">
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </a>
                 </div>
@@ -48,7 +49,9 @@
         });
     </script>
     <script>
-        document.getElementById("startTimer").addEventListener("click", function(){
+        document.getElementById("startTimer").addEventListener("click", countDown);
+
+        function countDown() {
             var totalSec = 0.1 * 60;
             // Update the count down every 1 second
             var x = setInterval(function () {
@@ -67,7 +70,7 @@
 
                 totalSec = totalSec - 1;
             }, 1000);
-        });
-
+            document.getElementById("startTimer").removeEventListener('click', countDown);
+        }
     </script>
 @endsection
