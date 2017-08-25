@@ -73,52 +73,44 @@
 <!--footer-->
 <link href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 <!--footer start from here-->
-<footer>
+<div class="footer">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-sm-6 footerleft ">
-                <div class="logofooter"> Logo</div>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                    industry's standard dummy text ever since the 1500s, when an unknown printer took a galley.</p>
-                <p><i class="fa fa-map-pin"></i> 210, Aggarwal Tower, Rohini sec 9, New Delhi -        110085, INDIA</p>
-                <p><i class="fa fa-phone"></i> Phone (India) : +91 9999 878 398</p>
-                <p><i class="fa fa-envelope"></i> E-mail : info@webenlance.com</p>
-
+        <div class="clearfix">
+            <div class="footer-logo"><a href="#"><img src="{{asset('bootflat/img/footer-logo.png')}}"/>Bootflat</a>
             </div>
-            <div class="col-md-2 col-sm-6 paddingtop-bottom">
-                <h6 class="heading7">GENERAL LINKS</h6>
-                <ul class="footer-ul">
-                    <li><a href="#"> Career</a></li>
-                    <li><a href="#"> Privacy Policy</a></li>
-                    <li><a href="#"> Terms & Conditions</a></li>
-                    <li><a href="#"> Client Gateway</a></li>
-                    <li><a href="#"> Ranking</a></li>
-                    <li><a href="#"> Case Studies</a></li>
-                    <li><a href="#"> Frequently Ask Questions</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3 col-sm-6 paddingtop-bottom">
-                <h6 class="heading7">LATEST POST</h6>
-                <div class="post">
-                    <p>facebook crack the movie advertisment code:what it means for you <span>August 3,2015</span></p>
-                    <p>facebook crack the movie advertisment code:what it means for you <span>August 3,2015</span></p>
-                    <p>facebook crack the movie advertisment code:what it means for you <span>August 3,2015</span></p>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6 paddingtop-bottom">
-                <div class="fb-page" data-href="https://www.facebook.com/facebook" data-tabs="timeline"
-                     data-height="300" data-small-header="false" style="margin-bottom:15px;"
-                     data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
-                    <div class="fb-xfbml-parse-ignore">
-                        <blockquote cite="https://www.facebook.com/facebook"><a
-                                    href="https://www.facebook.com/facebook">Facebook</a></blockquote>
-                    </div>
-                </div>
-            </div>
+            <dl class="footer-nav">
+                <dt class="nav-title">PORTFOLIO</dt>
+                <dd class="nav-item"><a href="#">Web Design</a></dd>
+                <dd class="nav-item"><a href="#">Branding &amp; Identity</a></dd>
+                <dd class="nav-item"><a href="#">Mobile Design</a></dd>
+                <dd class="nav-item"><a href="#">Print</a></dd>
+                <dd class="nav-item"><a href="#">User Interface</a></dd>
+            </dl>
+            <dl class="footer-nav">
+                <dt class="nav-title">ABOUT</dt>
+                <dd class="nav-item"><a href="#">The Company</a></dd>
+                <dd class="nav-item"><a href="#">History</a></dd>
+                <dd class="nav-item"><a href="#">Vision</a></dd>
+            </dl>
+            <dl class="footer-nav">
+                <dt class="nav-title">GALLERY</dt>
+                <dd class="nav-item"><a href="#">Flickr</a></dd>
+                <dd class="nav-item"><a href="#">Picasa</a></dd>
+                <dd class="nav-item"><a href="#">iStockPhoto</a></dd>
+                <dd class="nav-item"><a href="#">PhotoDune</a></dd>
+            </dl>
+            <dl class="footer-nav">
+                <dt class="nav-title">CONTACT</dt>
+                <dd class="nav-item"><a href="#">Basic Info</a></dd>
+                <dd class="nav-item"><a href="#">Map</a></dd>
+                <dd class="nav-item"><a href="#">Conctact Form</a></dd>
+            </dl>
+        </div>
+        <div class="footer-copyright text-center">Copyright &copy; 2014 Flathemes.All rights reserved.
         </div>
     </div>
-</footer>
-<!--footer start from here-->
+</div>
+<!--footer end here-->
 
 <div class="copyright">
     <div class="container">

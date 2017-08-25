@@ -28,7 +28,7 @@
 
 /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
-#map {
+#timer {
     height: 400px;
 }
 
@@ -40,67 +40,8 @@
     display: none;
 }
 
-#map #infowindow-content {
+#timer #infowindow-content {
     display: inline;
-}
-
-footer {
-    background-color: #0c1a1e;
-    min-height: 350px;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.footerleft {
-    margin-top: 50px;
-    padding: 0 36px;
-}
-
-.logofooter {
-    margin-bottom: 10px;
-    font-size: 25px;
-    color: #fff;
-    font-weight: 700;
-}
-
-.footerleft p {
-    color: #fff;
-    font-size: 12px !important;
-    font-family: 'Open Sans', sans-serif;
-    margin-bottom: 15px;
-}
-
-.footerleft p i {
-    width: 20px;
-    color: #999;
-}
-
-.paddingtop-bottom {
-    margin-top: 50px;
-}
-
-.footer-ul {
-    list-style-type: none;
-    padding-left: 0px;
-    margin-left: 2px;
-}
-
-.footer-ul li {
-    line-height: 29px;
-    font-size: 12px;
-}
-
-.footer-ul li a {
-    color: #a0a3a4;
-    transition: color 0.2s linear 0s, background 0.2s linear 0s;
-}
-
-.footer-ul i {
-    margin-right: 10px;
-}
-
-.footer-ul li a:hover {
-    transition: color 0.2s linear 0s, background 0.2s linear 0s;
-    color: #ff670f;
 }
 
 .social:hover {
@@ -177,4 +118,17 @@ footer {
 .bottom_ul li a {
     color: #FFF;
     font-size: 12px;
+}
+
+.flashcard {
+    margin-bottom: 0px !important;
+    font-size: 50px !important;
+    display: block !important;
+    height: 200px !important;
+    text-align: center !important;
+    padding-top: 50px !important;
+}
+
+.showtime-card {
+    font-size: 30px;
 }

@@ -2,42 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Repositories\Business;
 use Illuminate\Http\Request;
 
-class VocabularyController extends Controller
+class StudentController extends Controller
 {
-    /**
-     * @var $business
-     */
-    private $business;
-
-    /**
-     * VocabularyController constructor.
-     */
-    public function __construct()
-    {
-        $this->business = new Business();
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $filter = [
-            'lesson_id' => $request->lesson_id
-        ];
-        if (in_array($request->word_type, ['kanji_word', 'kana_word', 'viet_word']))
-            $wordType = $request->word_type;
-        else {
-            $wordType = 'kana_word';
-        }
-        $vocabularies = $this->business->getVocabuluryByParams($filter)->shuffle();
-        return view('vocabulary.index', compact('vocabularies', 'wordType'));
+        //
     }
 
     /**
@@ -53,7 +29,7 @@ class VocabularyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -64,18 +40,18 @@ class VocabularyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        dd($this->business->getVocabularyById($id)->lessons->name);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -86,8 +62,8 @@ class VocabularyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -98,7 +74,7 @@ class VocabularyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

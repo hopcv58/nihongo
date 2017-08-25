@@ -11,6 +11,7 @@ class Business
 {
     private $vocabulary;
     private $lesson;
+    private $student;
 
     /**
      * Business constructor.
@@ -19,6 +20,7 @@ class Business
     {
         $this->vocabulary = new Vocabulary();
         $this->lesson = new Lesson();
+        $this->student = new Student();
     }
 
     /**
@@ -34,8 +36,24 @@ class Business
     {
         $data = $this->vocabulary;
         foreach ($params as $key => $param) {
-            $data = $data->where($key, $param);
+            if (!empty($param)) {
+                $data = $data->where($key, $param);
+            }
         }
         return $data->get();
+    }
+
+    /**
+     * @param $class
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public function getStudentsFromClass($class)
+    {
+        return $this->student->where('class', $class)->get();
+    }
+
+    public function getLessonList()
+    {
+        return $this->lesson->all();
     }
 }
