@@ -14,7 +14,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="type" class="col-md-4 control-label">Student: </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" id="student_selector">
+                                        <select class="form-control" id="student_selector" name="student_id">
                                             <option value="random">Random!</option>
                                             @foreach($students as $student)
                                                 <option value="{{$student->id}}">{{$student->name}}</option>
@@ -26,7 +26,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="type" class="col-md-4 control-label">Class: </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" id="class_selector">
+                                        <select class="form-control" id="class_selector" name="lesson_id">
                                             <option value="random">Random!</option>
                                             @foreach($lessons as $lesson)
                                                 <option value="{{$lesson->id}}">{{$lesson->name}}</option>
@@ -38,7 +38,7 @@
                                 <div class="form-group col-md-6">
                                     <label for="type" class="col-md-4 control-label">Word type: </label>
                                     <div class="col-md-8">
-                                        <select class="form-control" id="word_selector">
+                                        <select class="form-control" id="word_selector" name="word_type">
                                             <option value="random">Random!</option>
                                             @foreach($wordTypes as $key => $wordType)
                                                 <option value="{{$key}}">{{$wordType}}</option>
@@ -62,7 +62,16 @@
                         </div>
 
                         <hr>
-                        <h4 id="congrat_note"></h4>
+                        <h4 class="" id="congrat_note"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="jumbotron">
+                    <div id="testPlace">
+
                     </div>
                 </div>
             </div>
@@ -72,31 +81,6 @@
 
 @section('extra_js')
     <script>
-        function randomizeSelector(selectObj, numberOfRandGenerator) {
-            var currentTime = 0;
-
-            var idOfInterval = setInterval(selectRandomStudent, 15);
-
-            function selectRandomStudent() {
-                if (currentTime >= numberOfRandGenerator) {
-                    clearInterval(idOfInterval);
-                    selectObj.doneSelect = true;
-                    if (student_selector.doneSelect && class_selector.doneSelect && word_selector.doneSelect)
-                        congratulateLuckyStudent();
-                } else {
-                    currentTime++;
-                    var index = Math.floor((Math.random() * (selectObj.children().length - 1)) + 1);
-                    selectObj.children().eq(index).prop('selected', true);
-                }
-            }
-        }
-
-        function congratulateLuckyStudent() {
-            $("#congrat_note").text("congra");
-            $("#generate_first_student").css("display", "none");
-            $("#generate_next_student").css("display", "block");
-        }
-
         var student_selector = $("#student_selector");
         var class_selector = $("#class_selector");
         var word_selector = $("#word_selector");
@@ -109,13 +93,13 @@
             word_selector.doneSelect = false;
 
             if (student_selector.val() === "random") {
-                randomizeSelector(student_selector, 100);
+                randomizeSelector(student_selector);
             }
             if (class_selector.val() === "random") {
-                randomizeSelector(class_selector, 100);
+                randomizeSelector(class_selector);
             }
             if (word_selector.val() === "random") {
-                randomizeSelector(word_selector, 100);
+                randomizeSelector(word_selector);
             }
         });
 
@@ -129,14 +113,57 @@
             word_selector.doneSelect = false;
 
             if (student_selector.val() === "random") {
-                randomizeSelector(student_selector, 100);
+                randomizeSelector(student_selector);
+            } else {
+                student_selector.doneSelect = true;
             }
             if (class_selector.val() === "random") {
-                randomizeSelector(class_selector, 100);
+                randomizeSelector(class_selector);
+            } else {
+                class_selector.doneSelect = true;
             }
             if (word_selector.val() === "random") {
-                randomizeSelector(word_selector, 100);
+                randomizeSelector(word_selector);
+            } else {
+                word_selector.doneSelect = true;
             }
         });
+
+        function randomizeSelector(selectObj) {
+            var currentTime = 0;
+            var maxTime = 100;
+
+            var idOfInterval = setInterval(selectRandomStudent, 20);
+
+            function selectRandomStudent() {
+                if (currentTime >= maxTime) {
+                    clearInterval(idOfInterval);
+                    selectObj.doneSelect = true;
+                    if (student_selector.doneSelect && class_selector.doneSelect && word_selector.doneSelect)
+                        congratulateLuckyStudent();
+                } else {
+                    currentTime++;
+                    var index = Math.floor((Math.random() * (selectObj.children().length - 1)) + 1);
+                    selectObj.children().eq(index).prop('selected', true);
+                }
+            }
+        }
+
+        function congratulateLuckyStudent() {
+            $("#congrat_note").html("Chúc mừng bạn " + $('option:selected', student_selector).html()
+                + " đã trúng giải.<br><br>Phần thưởng của bạn là kiểm tra "
+                + $('option:selected', class_selector).html());
+            $("#generate_first_student").css("display", "none");
+            $("#generate_next_student").css("display", "block");
+            $("#testPlace").html('<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">\n' +
+                '<div class="carousel-inner"><div class="item active"><div class="alert alert-info flashcard">' +
+                'Press next to start</div></div>' +
+                    @foreach($vocabularies as $vocabulary)
+                        '<div class="item"><div class="alert alert-info flashcard">' + '{{$vocabulary[$column]}}' + '</div></div>' +
+                    @endforeach
+                        '<div class="item"><div class="alert alert-info flashcard">Welcome to the end, CHAMPION!</div></div>' +
+                '</div><a class="right carousel-control" href="#carousel-example-generic" data-slide="next" id="startTimer">' +
+                '<span class="glyphicon glyphicon-chevron-right"></span></a></div>')
+        }
     </script>
 @endsection

@@ -29,7 +29,12 @@ class LessonController extends Controller
         $students = $this->business->getStudentsFromClass($request->class);
         $lessons = $this->business->getLessonList();
         $wordTypes = Nihongo::WORD_TYPE;
-        return view('lesson.index', compact('vocabularies', 'students', 'lessons', 'wordTypes'));
+        // TODO: to the api
+        $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => 1])->shuffle();
+//        dd($vocabularies);
+        $column = 'kana_word';
+        // end TODO
+        return view('lesson.index', compact('vocabularies', 'students', 'lessons', 'wordTypes', 'column'));
     }
 
     /**
