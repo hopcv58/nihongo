@@ -10,25 +10,22 @@
     <div class="exmaple">
         <div class="col-md-8">
             <div class="jumbotron">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner">
                         <div class="item active">
-                            <div class="alert alert-info flashcard"
-                                 style="margin-bottom: 0px;font-size: 50px; display:block; height: 200px;text-align: center; padding-top: 50px">
+                            <div class="alert alert-info flashcard">
                                 Press next to start
                             </div>
                         </div>
                         @foreach($vocabularies as $vocabulary)
                             <div class="item">
-                                <div class="alert alert-info flashcard"
-                                     style="margin-bottom: 0px;font-size: 50px; display:block; height: 200px;text-align: center; padding-top: 50px">
+                                <div class="alert alert-info flashcard">
                                     {{$vocabulary[$wordType]}}
                                 </div>
                             </div>
                         @endforeach
                         <div class="item">
-                            <div class="alert alert-info flashcard"
-                                 style="margin-bottom: 0px;font-size: 50px; display:block; height: 200px;text-align: center; padding-top: 50px">
+                            <div class="alert alert-info flashcard">
                                 Welcome to the end, CHAMPION!
                             </div>
                         </div>
@@ -53,8 +50,6 @@
         $('.carousel').carousel({
             interval: false
         });
-    </script>
-    <script>
         document.getElementById("startTimer").addEventListener("click", countDown);
 
         function countDown() {

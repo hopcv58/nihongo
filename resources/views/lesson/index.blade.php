@@ -68,12 +68,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-8">
                 <div class="jumbotron">
                     <div id="testPlace">
 
                     </div>
                 </div>
+                <div class="btn btn-warning col-md-3 pull-right" id="skipButton" style="display: none">
+                    Bỏ qua
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h1 id="timer">
+
+                </h1>
             </div>
         </div>
     </div>
@@ -163,7 +171,8 @@
                     @endforeach
                         '<div class="item"><div class="alert alert-info flashcard">Welcome to the end, CHAMPION!</div></div>' +
                 '</div><a class="right carousel-control" href="#carousel-example-generic" data-slide="next" id="startTimer">' +
-                '<span class="glyphicon glyphicon-chevron-right"></span></a></div>')
+                '<span class="glyphicon glyphicon-chevron-right"></span></a></div>');
+            $.getScript("{{asset('js/carousel-timer.js')}}");
         }
     </script>
 @endsection
