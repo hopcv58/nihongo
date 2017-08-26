@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 class Student extends BaseModel
 {
-    protected $table = 'student';
+    protected $table = 'students';
     protected $fillable = [
         'name',
         'class',
@@ -18,4 +18,8 @@ class Student extends BaseModel
         ];
     }
 
+    public function nihongoClass()
+    {
+        return $this->belongsTo(NihongoClass::class, 'lesson_id', 'id');
+    }
 }

@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 class Vocabulary extends BaseModel
 {
-    protected $table = 'vocabulary';
+    protected $table = 'vocabularies';
     protected $fillable = [
         'kanji_word',
         'kana_word',

@@ -12,6 +12,7 @@ class Business
     private $vocabulary;
     private $lesson;
     private $student;
+    private $nihongoClass;
 
     /**
      * Business constructor.
@@ -21,6 +22,7 @@ class Business
         $this->vocabulary = new Vocabulary();
         $this->lesson = new Lesson();
         $this->student = new Student();
+        $this->nihongoClass = new NihongoClass();
     }
 
     /**
@@ -47,9 +49,9 @@ class Business
      * @param $class
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public function getStudentsFromClass($class)
+    public function getStudentsFromClass($class_id)
     {
-        return $this->student->where('class', $class)->get();
+        return $this->student->where('class_id', $class_id)->get();
     }
 
     public function getLessonList()

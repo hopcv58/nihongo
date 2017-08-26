@@ -26,7 +26,7 @@ class LessonController extends Controller
      */
     public function index(Request $request)
     {
-        $students = $this->business->getStudentsFromClass($request->class);
+        $students = $this->business->getStudentsFromClass($request->class_id);
         $lessons = $this->business->getLessonList();
         $wordTypes = Nihongo::WORD_TYPE;
         // TODO: to the api

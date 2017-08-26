@@ -2,9 +2,9 @@
 
 namespace App\Repositories;
 
-class Lesson extends BaseModel
+class NihongoClass extends BaseModel
 {
-    protected $table = 'lessons';
+    protected $table = 'classes';
     protected $fillable = [
         'name',
     ];
@@ -16,9 +16,9 @@ class Lesson extends BaseModel
         ];
     }
 
-    public function vocabularies()
+    public function students()
     {
-        return $this->hasMany(Vocabulary::class, 'lesson_id', 'id');
+        return $this->hasMany(Student::class, 'class_id', 'id');
     }
 
 }
