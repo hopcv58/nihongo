@@ -1,18 +1,19 @@
-$('.carousel').carousel({
+var total = -1;
+var failure = [];
+startTimerBtn = document.getElementById("startTimer");
+skipBtn = document.getElementById("skipButton");
+testCarousel = $('.carousel');
+
+testCarousel.carousel({
     interval: false
 });
 
-var success = 0;
-var failure = 0;
-startTimerBtn = document.getElementById("startTimer");
-skipBtn = document.getElementById("skipButton");
-
-function nextCaroulse(maxWord) {
-    startTimerBtn.addEventListener('click', countDown);
-    startTimerBtn.addEventListener('click', countSuccess);
-    skipBtn.addEventListener('click', countFailure);
-    alert("success:" + success + ", failure: " + failure);
-}
+startTimerBtn.addEventListener('click', countDown);
+testCarousel.bind('slide.bs.carousel', function (e) {
+    console.log('slide event!');
+});
+// startTimerBtn.addEventListener('click', countSuccess);
+// skipBtn.addEventListener('click', countFailure);
 
 function countDown() {
     var totalSec = 0.1 * 60;
@@ -41,14 +42,20 @@ function skipButton() {
     skipBtn = $("#skipButton");
     skipBtn.css("display", "block");
     skipBtn.on("click", function (e) {
+        var word = testCarousel.find(".active").text();
+        if($.inArray(word, failure) === -1){
+            failure.push(word);
+        }
         $("#startTimer").trigger("click");
     });
 }
 
-function countSuccess() {
-    success++;
-}
-
-function countFailure() {
-    failure++;
-}
+// function countSuccess() {
+//     success++;
+//     $("#pass_count").text("Passed: " + success);
+// }
+//
+// function countFailure() {
+//     $("#skip_count").text("Skipped: " + failure);
+//     failure++;
+// }

@@ -77,6 +77,8 @@
                 <div class="btn btn-warning col-md-3 pull-right" id="skipButton" style="display: none">
                     Bỏ qua
                 </div>
+                <div class="col-md-4" id="pass_count"></div>
+                <div class="col-md-4" id="skip_count"></div>
             </div>
             <div class="col-md-4">
                 <h1 id="timer">
