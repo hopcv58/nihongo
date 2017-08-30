@@ -1,6 +1,7 @@
-var total = -1;
+var passed = 0;
 var failure = [];
-startTimerBtn = document.getElementById("startTimer");
+nextCarouselBtn = document.getElementById("nextCarousel");
+prevCarouselBtn = document.getElementById("prevCarousel");
 skipBtn = document.getElementById("skipButton");
 testCarousel = $('.carousel');
 
@@ -8,15 +9,29 @@ testCarousel.carousel({
     interval: false
 });
 
-startTimerBtn.addEventListener('click', countDown);
+nextCarouselBtn.addEventListener('click', countDown);
 testCarousel.bind('slide.bs.carousel', function (e) {
-    console.log('slide event!');
+    var carousel_index = testCarousel.find('.active').index('.carousel .item');
+    var carousel_length = testCarousel.find('.item').length;
+    if (carousel_index > 0 && carousel_index < (carousel_length - 1)) {
+        passed++;
+        $("#pass_count").text("Passed: " + passed);
+        if (carousel_index === (carousel_length - 2)) {
+            nextCarouselBtn.style.visibility = 'hidden';
+            skipBtn.unbind("click");
+        }
+        if (carousel_index > 0) {
+            prevCarouselBtn.style.visibility = 'block';
+        }
+    } else {
+        skipBtn.css("display", "hidden");
+    }
 });
-// startTimerBtn.addEventListener('click', countSuccess);
+// nextCarouselBtn.addEventListener('click', countSuccess);
 // skipBtn.addEventListener('click', countFailure);
 
 function countDown() {
-    var totalSec = 0.1 * 60;
+    var totalSec = 2 * 60;
     // Update the count down every 1 second
     var x = setInterval(function () {
         // Time calculations for days, hours, minutes and seconds
@@ -34,19 +49,27 @@ function countDown() {
 
         totalSec = totalSec - 1;
     }, 1000);
-    document.getElementById("startTimer").removeEventListener('click', countDown);
+    document.getElementById("nextCarousel").removeEventListener('click', countDown);
     skipButton();
 }
 
 function skipButton() {
     skipBtn = $("#skipButton");
     skipBtn.css("display", "block");
+    skipList = $("#skip_list");
+    skipCount = $("#skip_count");
+
     skipBtn.on("click", function (e) {
         var word = testCarousel.find(".active").text();
-        if($.inArray(word, failure) === -1){
+        if ($.inArray(word, failure) === -1) {
             failure.push(word);
+            skipCount.text("Skipped: " + failure.length);
+            skipList.append('<tr class="danger"><td>' + word + '</td></tr>');
         }
-        $("#startTimer").trigger("click");
+        $("#nextCarousel").trigger("click");
+        passed--;
+        $("#pass_count").text(passed);
+        // $("#pass_count").text(passed);
     });
 }
 

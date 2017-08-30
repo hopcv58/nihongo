@@ -59,23 +59,17 @@ class LessonController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show vocabularies by lesson id.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id, Request $request)
     {
-        $filter = [
-            'lesson_id' => $id
-        ];
-        if (in_array($request->word_type, ['kanji_word', 'kana_word', 'viet_word']))
-            $wordType = $request->word_type;
-        else {
-            $wordType = 'kana_word';
-        }
-        $vocabularies = $this->business->getVocabuluryByParams($filter)->shuffle();
-        return view('lesson.show', compact('vocabularies', 'wordType'));
+        $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => $id])->shuffle();
+        $wordType = $request->word_type;
+        return response()->json(compact('vocabularies','wordType'));
     }
 
     /**

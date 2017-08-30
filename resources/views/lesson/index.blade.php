@@ -77,8 +77,20 @@
                 <div class="btn btn-warning col-md-3 pull-right" id="skipButton" style="display: none">
                     Bỏ qua
                 </div>
-                <div class="col-md-4" id="pass_count"></div>
-                <div class="col-md-4" id="skip_count"></div>
+
+                <div class="col-md-4 btn btn-success" id="pass_count" style="display: none">Passed: 0</div>
+
+                <div class="col-md-4" id="skipped_table_div" style="display: none;">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="danger">
+                            <th id="skip_count">Skipped : 0</th>
+                        </tr>
+                        </thead>
+                        <tbody id="skip_list">
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-md-4">
                 <h1 id="timer">
@@ -104,12 +116,18 @@
 
             if (student_selector.val() === "random") {
                 randomizeSelector(student_selector);
+            } else {
+                student_selector.doneSelect = true;
             }
             if (class_selector.val() === "random") {
                 randomizeSelector(class_selector);
+            } else {
+                class_selector.doneSelect = true;
             }
             if (word_selector.val() === "random") {
                 randomizeSelector(word_selector);
+            } else {
+                word_selector.doneSelect = true;
             }
         });
 
@@ -121,6 +139,7 @@
             student_selector.doneSelect = false;
             class_selector.doneSelect = false;
             word_selector.doneSelect = false;
+            $('#pass_count').text("Passed: 0");
 
             if (student_selector.val() === "random") {
                 randomizeSelector(student_selector);
@@ -161,20 +180,36 @@
 
         function congratulateLuckyStudent() {
             $("#congrat_note").html("Chúc mừng bạn " + $('option:selected', student_selector).html()
-                + " đã trúng giải.<br><br>Phần thưởng của bạn là kiểm tra "
-                + $('option:selected', class_selector).html());
+                + " đã trúng giải.<br><br>Phần thưởng của bạn là kiểm tra " + $('option:selected', class_selector).html());
+
             $("#generate_first_student").css("display", "none");
             $("#generate_next_student").css("display", "block");
-            $("#testPlace").html('<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">\n' +
-                '<div class="carousel-inner"><div class="item active"><div class="alert alert-info flashcard">' +
-                'Press next to start</div></div>' +
-                    @foreach($vocabularies as $vocabulary)
-                        '<div class="item"><div class="alert alert-info flashcard">' + '{{$vocabulary[$column]}}' + '</div></div>' +
-                    @endforeach
-                        '<div class="item"><div class="alert alert-info flashcard">Welcome to the end, CHAMPION!</div></div>' +
-                '</div><a class="right carousel-control" href="#carousel-example-generic" data-slide="next" id="startTimer">' +
-                '<span class="glyphicon glyphicon-chevron-right"></span></a></div>');
-            $.getScript("{{asset('js/carousel-timer.js')}}");
+            $('#pass_count').css("display", "block");
+            $('#skipped_table_div').css("display", "block");
+
+            var jsonUrl = "{{route('lesson.index')}}" + "/" + class_selector.val() + "?word_type=" + word_selector.val();
+            var vocabularies = [];
+            var word_type = '';
+            $.getJSON(jsonUrl, function (data) {
+                vocabularies = data['vocabularies'];
+                word_type = data['wordType'];
+                console.log(vocabularies[0]);
+                var carouselHtml = '<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">' +
+                    '<div class="carousel-inner"><div class="item active"><div class="alert alert-info flashcard">' +
+                    'Press next to start</div></div>';
+                for (var i = 0; i < vocabularies.length; i++) {
+                    carouselHtml = carouselHtml + '<div class="item"><div class="alert alert-info flashcard">'
+                        + vocabularies[i][word_type] + '</div></div>';
+                }
+                carouselHtml = carouselHtml + '<div class="item"><div class="alert alert-info flashcard">Welcome to the end, CHAMPION!</div></div>' +
+                    '</div><a class="left carousel-control" href="#carousel-example-generic" data-slide="prev" id="prevCarousel" style="display: none">' +
+                    '<span class="glyphicon glyphicon-chevron-left"></span></a>' +
+                    '<a class="right carousel-control" href="#carousel-example-generic" data-slide="next" id="nextCarousel">' +
+                    '<span class="glyphicon glyphicon-chevron-right"></span></a></div>';
+
+                $("#testPlace").html(carouselHtml);
+                $.getScript("{{asset('js/carousel-timer.js')}}");
+            });
         }
     </script>
 @endsection
