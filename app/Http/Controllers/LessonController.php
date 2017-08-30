@@ -69,7 +69,7 @@ class LessonController extends Controller
     {
         $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => $id])->shuffle();
         $wordType = $request->word_type;
-        return response()->json(compact('vocabularies','wordType'));
+        return response()->json(compact('vocabularies','wordType '));
     }
 
     /**
