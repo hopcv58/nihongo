@@ -7,6 +7,7 @@ class Lesson extends BaseModel
     protected $table = 'lessons';
     protected $fillable = [
         'name',
+        'weight'
     ];
 
     public function rule()

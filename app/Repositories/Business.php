@@ -36,7 +36,7 @@ class Business
 
     public function getVocabuluryByParams($params)
     {
-        $data = $this->vocabulary;
+        $data = $this->vocabulary->orderBy('lesson_id','asc');
         foreach ($params as $key => $param) {
             if (!empty($param)) {
                 $data = $data->where($key, $param);
@@ -54,8 +54,14 @@ class Business
         return $this->student->where('class_id', $class_id)->get();
     }
 
-    public function getLessonList()
+    public function getLessonsByParams(array $params)
     {
-        return $this->lesson->all();
+        $data = $this->lesson->orderBy('id','asc');
+        foreach ($params as $key => $param) {
+            if (!empty($param)) {
+                $data = $data->where($key, $param);
+            }
+        }
+        return $data->get();
     }
 }

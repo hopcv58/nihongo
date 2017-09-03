@@ -28,16 +28,8 @@ class VocabularyController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = [
-            'lesson_id' => $request->lesson_id
-        ];
-        if (in_array($request->word_type, ['kanji_word', 'kana_word', 'viet_word']))
-            $wordType = $request->word_type;
-        else {
-            $wordType = 'kana_word';
-        }
-        $vocabularies = $this->business->getVocabuluryByParams($filter)->shuffle();
-        return view('vocabulary.index', compact('vocabularies', 'wordType'));
+        $lessons = $this->business->getLessonsByParams([]);
+        return view('vocabulary.index', compact('lessons'));
     }
 
     /**

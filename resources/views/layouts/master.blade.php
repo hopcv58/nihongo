@@ -44,20 +44,19 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-expanded="false"> Category <span class="caret"></span>
+                           aria-expanded="false"> Classes <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{route('vocabulary.index')}}">Index</a></li>
-                            <li><a href="{{route('vocabulary.create')}}">Create</a></li>
+                            <li><a href="{{route('vocabulary.index')}}">View all/Create</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-expanded="false"> Transaction <span class="caret"></span>
+                           aria-expanded="false"> Vocabularies <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{route('lesson.index')}}">Index</a></li>
-                            <li><a href="{{route('lesson.create')}}">Create</a></li>
+                            <li><a href="{{route('vocabulary.index')}}">View all/Create</a></li>
+                            <li><a href="{{route('lesson.test')}}">Start testing</a></li>
                         </ul>
                     </li>
                 </ul>

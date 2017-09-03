@@ -27,7 +27,7 @@ class LessonController extends Controller
     public function index(Request $request)
     {
         $students = $this->business->getStudentsFromClass($request->class_id);
-        $lessons = $this->business->getLessonList();
+        $lessons = $this->business->getLessonsByParams([]);
         $wordTypes = Nihongo::WORD_TYPE;
         // TODO: to the api
         $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => 1])->shuffle();
@@ -67,9 +67,13 @@ class LessonController extends Controller
      */
     public function show($id, Request $request)
     {
-        $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => $id])->shuffle();
+        if ($id == "all") {
+            $vocabularies = $this->business->getVocabuluryByParams([])->shuffle();
+        } else {
+            $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => $id])->shuffle();
+        }
         $wordType = $request->word_type;
-        return response()->json(compact('vocabularies','wordType '));
+        return response()->json(compact('vocabularies', 'wordType'));
     }
 
     /**
@@ -104,5 +108,24 @@ class LessonController extends Controller
     public function destroy(Lesson $lesson)
     {
         //
+    }
+
+    /**
+     * Test here.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function test(Request $request)
+    {
+        $students = $this->business->getStudentsFromClass($request->class_id);
+        $lessons = $this->business->getLessonList();
+        $wordTypes = Nihongo::WORD_TYPE;
+        // TODO: to the api
+        $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => 1])->shuffle();
+//        dd($vocabularies);
+        $column = 'kana_word';
+        // end TODO
+        return view('lesson.test', compact('vocabularies', 'students', 'lessons', 'wordTypes', 'column'));
     }
 }

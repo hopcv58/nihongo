@@ -4,6 +4,12 @@ nextCarouselBtn = document.getElementById("nextCarousel");
 prevCarouselBtn = document.getElementById("prevCarousel");
 skipBtn = document.getElementById("skipButton");
 testCarousel = $('.carousel');
+nextTargetBtn = $("#generate_next_student");
+skipBtn = $("#skipButton");
+skipBtn.css("display", "block");
+skipList = $("#skip_list");
+skipCount = $("#skip_count");
+var countInterval;
 
 testCarousel.carousel({
     interval: false
@@ -19,21 +25,31 @@ testCarousel.bind('slide.bs.carousel', function (e) {
         if (carousel_index === (carousel_length - 2)) {
             nextCarouselBtn.style.visibility = 'hidden';
             skipBtn.unbind("click");
+            clearInterval(countInterval);
         }
-        if (carousel_index > 0) {
-            prevCarouselBtn.style.visibility = 'block';
-        }
+        // TODO: previous carousel handle
+        // if (carousel_index > 0) {console.log(carousel_index)
+        //     prevCarouselBtn.style.display = 'block';
+        // }
     } else {
-        skipBtn.css("display", "hidden");
+        skipBtn.css("display", "block");
     }
 });
-// nextCarouselBtn.addEventListener('click', countSuccess);
-// skipBtn.addEventListener('click', countFailure);
+
+nextTargetBtn.on("click", function (e) {
+    passed = 0;
+    failure = [];
+    $("#pass_count").text("Passed: " + passed);
+    skipCount.text("Skipped: " + failure.length);
+    skipBtn.css("display", "none");
+    skipList.html("");
+    clearInterval(countInterval);
+});
 
 function countDown() {
     var totalSec = 2 * 60;
     // Update the count down every 1 second
-    var x = setInterval(function () {
+    countInterval = setInterval(function () {
         // Time calculations for days, hours, minutes and seconds
         var minutes = Math.floor((totalSec / 60));
         var seconds = Math.floor((totalSec % 60));
@@ -43,7 +59,7 @@ function countDown() {
 
         // If the count down is over, write some text
         if (totalSec < 0) {
-            clearInterval(x);
+            clearInterval(countInterval);
             document.getElementById("timer").innerHTML = "TIME 'S UP!";
         }
 
@@ -54,11 +70,6 @@ function countDown() {
 }
 
 function skipButton() {
-    skipBtn = $("#skipButton");
-    skipBtn.css("display", "block");
-    skipList = $("#skip_list");
-    skipCount = $("#skip_count");
-
     skipBtn.on("click", function (e) {
         var word = testCarousel.find(".active").text();
         if ($.inArray(word, failure) === -1) {
@@ -67,18 +78,6 @@ function skipButton() {
             skipList.append('<tr class="danger"><td>' + word + '</td></tr>');
         }
         $("#nextCarousel").trigger("click");
-        passed--;
-        $("#pass_count").text(passed);
-        // $("#pass_count").text(passed);
+        $("#pass_count").text("Passed: " + passed);
     });
 }
-
-// function countSuccess() {
-//     success++;
-//     $("#pass_count").text("Passed: " + success);
-// }
-//
-// function countFailure() {
-//     $("#skip_count").text("Skipped: " + failure);
-//     failure++;
-// }
