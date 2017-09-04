@@ -36,7 +36,7 @@ class Business
 
     public function getVocabuluryByParams($params)
     {
-        $data = $this->vocabulary->orderBy('lesson_id','asc');
+        $data = $this->vocabulary->orderBy('lesson_id', 'asc');
         foreach ($params as $key => $param) {
             if (!empty($param)) {
                 $data = $data->where($key, $param);
@@ -56,12 +56,31 @@ class Business
 
     public function getLessonsByParams(array $params)
     {
-        $data = $this->lesson->orderBy('id','asc');
+        $data = $this->lesson->orderBy('id', 'asc');
         foreach ($params as $key => $param) {
             if (!empty($param)) {
                 $data = $data->where($key, $param);
             }
         }
         return $data->get();
+    }
+
+    public function getClassesByParams(array $params)
+    {
+        $data = $this->nihongoClass->orderBy('id', 'asc');
+        foreach ($params as $key => $param) {
+            if (!empty($param)) {
+                $data = $data->where($key, $param);
+            }
+        }
+        $data = $data->where('delete_flag', '0');
+        return $data->get();
+    }
+
+    public function deleteClass($id)
+    {
+        $class = $this->nihongoClass->find($id);
+        $class->delete_flag = 1;
+        $class->update();
     }
 }

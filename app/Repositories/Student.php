@@ -7,7 +7,8 @@ class Student extends BaseModel
     protected $table = 'students';
     protected $fillable = [
         'name',
-        'class',
+        'class_id',
+        'delete_flag',
     ];
 
     public function rule()

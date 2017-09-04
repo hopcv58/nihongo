@@ -47,12 +47,12 @@
                            aria-expanded="false"> Classes <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{route('vocabulary.index')}}">View all/Create</a></li>
+                            <li><a href="{{route('class.index')}}">View all/Create</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-expanded="false"> Vocabularies <span class="caret"></span>
+                           aria-expanded="false"> Lessons <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="{{route('vocabulary.index')}}">View all/Create</a></li>

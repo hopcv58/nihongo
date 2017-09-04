@@ -119,13 +119,13 @@ class LessonController extends Controller
     public function test(Request $request)
     {
         $students = $this->business->getStudentsFromClass($request->class_id);
-        $lessons = $this->business->getLessonList();
+        $lessons = $this->business->getLessonsByParams([]);
         $wordTypes = Nihongo::WORD_TYPE;
         // TODO: to the api
         $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => 1])->shuffle();
 //        dd($vocabularies);
         $column = 'kana_word';
         // end TODO
-        return view('lesson.test', compact('vocabularies', 'students', 'lessons', 'wordTypes', 'column'));
+        return view('lesson.index', compact('vocabularies', 'students', 'lessons', 'wordTypes', 'column'));
     }
 }

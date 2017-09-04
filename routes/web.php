@@ -22,3 +22,5 @@ Route::get('/lesson/test', 'LessonController@test')->name('lesson.test');
 
 Route::resource('vocabulary', 'VocabularyController');
 Route::resource('lesson', 'LessonController');
+Route::resource('class', 'ClassController');
+Route::resource('student', 'StudentController');

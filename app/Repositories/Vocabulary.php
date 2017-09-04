@@ -10,6 +10,7 @@ class Vocabulary extends BaseModel
         'kana_word',
         'viet_word',
         'lesson_id',
+        'delete_flag',
     ];
 
     public function rule()

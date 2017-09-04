@@ -7,6 +7,7 @@ class NihongoClass extends BaseModel
     protected $table = 'classes';
     protected $fillable = [
         'name',
+        'delete_flag'
     ];
 
     public function rule()
