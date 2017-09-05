@@ -55,7 +55,7 @@
                            aria-expanded="false"> Lessons <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{route('vocabulary.index')}}">View all/Create</a></li>
+                            <li><a href="{{route('lesson.index')}}">View all/Create</a></li>
                             <li><a href="{{route('lesson.test')}}">Start testing</a></li>
                         </ul>
                     </li>

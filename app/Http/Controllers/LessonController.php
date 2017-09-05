@@ -79,12 +79,13 @@ class LessonController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Repositories\Lesson $lesson
+     * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lesson $lesson)
+    public function edit($id)
     {
-        //
+        $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => $id]);
+        return view('lesson.edit', compact('vocabularies'));
     }
 
     /**
@@ -126,6 +127,6 @@ class LessonController extends Controller
 //        dd($vocabularies);
         $column = 'kana_word';
         // end TODO
-        return view('lesson.index', compact('vocabularies', 'students', 'lessons', 'wordTypes', 'column'));
+        return view('lesson.test', compact('vocabularies', 'students', 'lessons', 'wordTypes', 'column'));
     }
 }
