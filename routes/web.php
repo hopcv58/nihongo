@@ -19,8 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/lesson/test', 'LessonController@test')->name('lesson.test');
+Route::post('/vocabulary/destroy', 'VocabularyController@destroy')->name('vocabulary.destroy');
 
-Route::resource('vocabulary', 'VocabularyController');
+Route::resource('vocabulary', 'VocabularyController', ['except' => [
+    'destroy'
+]]);
+
 Route::resource('lesson', 'LessonController');
 Route::resource('class', 'ClassController');
 Route::resource('student', 'StudentController');

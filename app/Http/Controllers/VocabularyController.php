@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Support\Facades\Validator;
 use App\Repositories\Business;
 use Illuminate\Http\Request;
 
@@ -50,7 +51,22 @@ class VocabularyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'kana_word' => 'required|unique:vocabularies|max:255',
+            'viet_word' => 'required|max:255',
+            'lesson_id' => 'required|exists:lessons,id'
+        ]);
+
+        $validator->after(function ($validator) {
+            // TODO: add validation on bracket
+        });
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+        $vocabulary = $this->business->storeNewWord($request->kana_word, $request->viet_word, $request->lesson_id);
+        $vocabulary->kana_word = $this->business->getHtmlDisplay($vocabulary->kana_word);
+        return response()->json($vocabulary);
     }
 
     /**
@@ -90,11 +106,10 @@ class VocabularyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        return response()->json($this->business->deleteWord($request->id));
     }
 }

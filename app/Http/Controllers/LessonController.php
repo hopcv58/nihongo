@@ -72,6 +72,9 @@ class LessonController extends Controller
         } else {
             $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => $id])->shuffle();
         }
+        foreach ($vocabularies as $vocabulary) {
+            $vocabulary->kana_word = $this->business->getHtmlDisplay($vocabulary->kana_word);
+        }
         $wordType = $request->word_type;
         return response()->json(compact('vocabularies', 'wordType'));
     }
@@ -85,6 +88,9 @@ class LessonController extends Controller
     public function edit($id)
     {
         $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => $id]);
+        foreach ($vocabularies as $vocabulary) {
+            $vocabulary->kana_word = $this->business->getHtmlDisplay($vocabulary->kana_word);
+        }
         return view('lesson.edit', compact('vocabularies'));
     }
 
