@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <h3>{{$vocabularies[0]->lessons->name}}</h3>
+    <h3>{{$lesson[0]->name}}</h3>
     <div class="jumbotron">
         <table class="table table-hover">
             <thead>
@@ -54,10 +54,18 @@
                     <h4 class="modal-title">Modal Header</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Some text in the modal.</p>
+                    <div class="form-group">
+                        <label for="email">Kana word:</label>
+                        <input type="text" class="form-control" id="kana_edit">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Viet word:</label>
+                        <input type="text" class="form-control" id="viet_edit">
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" data-dismiss="modal" onclick="saveEditedWord()">Save
+                    </button>
                 </div>
             </div>
 
@@ -67,20 +75,22 @@
 
 @section('extra_js')
     <script>
+        var current_id;
+
         $("#addWordBtn").on('click', function (e) {
             $.post("{{route('vocabulary.store')}}",
                 {
                     "_token": "{{csrf_token()}}",
                     "kana_word": $("#kana_input").val(),
                     "viet_word": $("#viet_input").val(),
-                    "lesson_id": "{{$vocabularies[0]->lessons->id}}"
+                    "lesson_id": "{{$lesson[0]->id}}"
                 },
                 function (data, status) {
                     if (status === 'success') {
                         $("#formInputWord").before("<tr><td><input type='checkbox' name='word_id' value='" + data.id + "'></td><td>"
                             + data.kanji_word + "</td><td>" + data.kana_word + "</td><td>"
-                            + data.viet_word + "</td><td><a class='btn btn-danger'>Delete</a>"
-                            + "<a class='btn btn-primary'>Edit</a></td></tr>");
+                            + data.viet_word + "</td><td>"
+                            + "<a class='btn btn-primary' onclick='openEditModal(" + data.id + ")'>Edit</a></td></tr>");
                     } else {
                         alert(data);
                     }
@@ -109,7 +119,34 @@
         });
 
         function openEditModal(id) {
-            $("#editModal").modal();
+            $.getJSON("{{route('vocabulary.index')}}" + "/" + id, function (data) {
+                var kana_edit = $("#kana_edit");
+                var viet_edit = $("#viet_edit");
+                kana_edit.val(data.kana_word);
+                viet_edit.val(data.viet_word);
+                $("#editModal").modal();
+                current_id = id;
+            });
+        }
+
+        function saveEditedWord() {
+            $.post("{{route('vocabulary.index')}}" + "/" + current_id,
+                {
+                    "_method": "PUT",
+                    "_token": "{{csrf_token()}}",
+                    "kana_word": $("#kana_edit").val(),
+                    "viet_word": $("#viet_edit").val()
+                },
+                function (data, status) {
+                    if (status === 'success') {
+                        $("#row" + data.id).html(
+                            "<td><input type='checkbox' name='word_id' value='" + data.id + "'></td><td>"
+                            + data.kanji_word + "</td><td>" + data.kana_word + "</td><td>"
+                            + data.viet_word + "</td><td><a class='btn btn-primary' onclick='openEditModal(" + data.id + ")'>Edit</a></td>"
+                        )
+                    }
+                }
+            );
         }
     </script>
 @endsection

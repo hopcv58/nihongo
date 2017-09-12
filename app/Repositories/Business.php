@@ -122,4 +122,13 @@ class Business
     {
         return $this->vocabulary->whereIn('id', $ids)->update(['delete_flag' => 1]);
     }
+
+    public function updateWord($id, array $demands)
+    {
+        $vocabulary = $this->vocabulary->find($id);
+        $vocabulary->kana_word = $demands['kana_word'];
+        $vocabulary->viet_word = $demands['viet_word'];
+        $vocabulary->save();
+        return $vocabulary;
+    }
 }

@@ -91,7 +91,8 @@ class LessonController extends Controller
         foreach ($vocabularies as $vocabulary) {
             $vocabulary->kana_word = $this->business->getHtmlDisplay($vocabulary->kana_word);
         }
-        return view('lesson.edit', compact('vocabularies'));
+        $lesson = $this->business->getLessonsByParams(['id' => $id]);
+        return view('lesson.edit', compact('vocabularies', 'lesson'));
     }
 
     /**

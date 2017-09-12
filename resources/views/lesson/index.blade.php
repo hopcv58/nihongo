@@ -2,6 +2,9 @@
 
 @section('content')
     <h3>Lesson list</h3>
+    <div class="row">
+        <a class="pull-right btn btn-primary" href="{{route('class.create')}}">Add new class</a>
+    </div>
     <div class="jumbotron">
         <table class="table table-hover">
             <thead>

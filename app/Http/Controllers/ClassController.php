@@ -68,7 +68,9 @@ class ClassController extends Controller
      */
     public function edit($id)
     {
-        //
+        $students = $this->business->getStudentsFromClass($id);
+        $class = $this->business->getClassesByParams(['id' => $id]);
+        return view('class.edit', compact('students', 'class'));
     }
 
     /**

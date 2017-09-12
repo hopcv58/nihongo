@@ -52,13 +52,13 @@ class VocabularyController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'kana_word' => 'required|unique:vocabularies|max:255',
+            'kana_word' => 'required|max:255',
             'viet_word' => 'required|max:255',
             'lesson_id' => 'required|exists:lessons,id'
         ]);
 
         $validator->after(function ($validator) {
-            // TODO: add validation on bracket
+            // TODO: add validation for bracket
         });
 
         if ($validator->fails()) {
@@ -77,7 +77,7 @@ class VocabularyController extends Controller
      */
     public function show($id)
     {
-        dd($this->business->getVocabularyById($id)->lessons->name);
+        return response()->json($this->business->getVocabuluryByParams(['id' => $id])[0]);
     }
 
     /**
@@ -100,7 +100,9 @@ class VocabularyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $vocabulary = $this->business->updateWord($id, $request->all());
+        $vocabulary->kana_word = $this->business->getHtmlDisplay($vocabulary->kana_word);
+        return response()->json($vocabulary);
     }
 
     /**
