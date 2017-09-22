@@ -31,7 +31,7 @@
                 <td></td>
                 <td><input type="text" name="kanji_word" id="kana_input"></td>
                 <td><input type="text" name="kanji_word" id="viet_input"></td>
-                <td><a href="#" class="btn btn-info" id="addWordBtn">Add new</a></td>
+                <td><a class="btn btn-info" id="addWordBtn">Add new</a></td>
             </tr>
             <tr>
                 <td><a class="btn btn-danger" id="deleteBtn">Delete</a></td>
@@ -87,7 +87,7 @@
                 },
                 function (data, status) {
                     if (status === 'success') {
-                        $("#formInputWord").before("<tr><td><input type='checkbox' name='word_id' value='" + data.id + "'></td><td>"
+                        $("#formInputWord").before("<tr id='row" + data.id + "'><td><input type='checkbox' name='word_id' value='" + data.id + "'></td><td>"
                             + data.kanji_word + "</td><td>" + data.kana_word + "</td><td>"
                             + data.viet_word + "</td><td>"
                             + "<a class='btn btn-primary' onclick='openEditModal(" + data.id + ")'>Edit</a></td></tr>");
