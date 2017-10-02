@@ -57,7 +57,8 @@ class Business
 
     public function getLessonsByParams(array $params)
     {
-        $data = $this->lesson->orderBy('id', 'asc');
+        $data = $this->lesson->where('delete_flag', 0)
+            ->orderBy('id', 'asc');
         foreach ($params as $key => $param) {
             if (!empty($param)) {
                 $data = $data->where($key, $param);
@@ -123,6 +124,11 @@ class Business
         return $this->vocabulary->whereIn('id', $ids)->update(['delete_flag' => 1]);
     }
 
+    public function deleteLesson(array $ids)
+    {
+        return $this->lesson->whereIn('id', $ids)->update(['delete_flag' => 1]);
+    }
+
     public function updateWord($id, array $demands)
     {
         $vocabulary = $this->vocabulary->find($id);
@@ -130,5 +136,13 @@ class Business
         $vocabulary->viet_word = $demands['viet_word'];
         $vocabulary->save();
         return $vocabulary;
+    }
+
+    public function storeNewLesson($name, $weight)
+    {
+        return $this->lesson->store([
+            'name' => $name,
+            'weight' => $weight
+        ]);
     }
 }

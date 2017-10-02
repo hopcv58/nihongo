@@ -6,6 +6,7 @@ use App\Components\Constants\Nihongo;
 use App\Repositories\Business;
 use App\Repositories\Lesson;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LessonController extends Controller
 {
@@ -26,15 +27,14 @@ class LessonController extends Controller
      */
     public function index(Request $request)
     {
-        $students = $this->business->getStudentsFromClass($request->class_id);
+//        $students = $this->business->getStudentsFromClass($request->class_id);
         $lessons = $this->business->getLessonsByParams([]);
-        $wordTypes = Nihongo::WORD_TYPE;
+//        $wordTypes = Nihongo::WORD_TYPE;
         // TODO: to the api
-        $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => 1])->shuffle();
+//        $vocabularies = $this->business->getVocabuluryByParams(['lesson_id' => 1])->shuffle();
 //        dd($vocabularies);
-        $column = 'kana_word';
-        // end TODO
-        return view('lesson.index', compact('vocabularies', 'students', 'lessons', 'wordTypes', 'column'));
+//        $column = 'kana_word';
+        return view('lesson.index', compact('lessons'));
     }
 
     /**
@@ -55,7 +55,16 @@ class LessonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'weight' => 'required|integer|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+        $vocabulary = $this->business->storeNewLesson($request->name, $request->weight);
+        return response()->json($vocabulary);
     }
 
     /**
@@ -113,9 +122,9 @@ class LessonController extends Controller
      * @param  \App\Repositories\Lesson $lesson
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lesson $lesson)
+    public function destroy(Request $request)
     {
-        //
+        return response()->json($this->business->deleteLesson($request->id));
     }
 
     /**

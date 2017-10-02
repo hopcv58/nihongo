@@ -20,11 +20,20 @@ Auth::routes();
 Route::get('/home', 'HomeController@home')->name('home');
 Route::get('/lesson/test', 'LessonController@test')->name('lesson.test');
 Route::post('/vocabulary/destroy', 'VocabularyController@destroy')->name('vocabulary.destroy');
+Route::post('/lesson/destroy', 'LessonController@destroy')->name('lesson.destroy');
+Route::post('/class/destroy', 'ClassController@destroy')->name('class.destroy');
+Route::post('/student/destroy', 'StudentController@destroy')->name('student.destroy');
 
 Route::resource('vocabulary', 'VocabularyController', ['except' => [
     'destroy'
 ]]);
 
-Route::resource('lesson', 'LessonController');
-Route::resource('class', 'ClassController');
-Route::resource('student', 'StudentController');
+Route::resource('lesson', 'LessonController', ['except' => [
+    'destroy'
+]]);
+Route::resource('class', 'ClassController', ['except' => [
+    'destroy'
+]]);
+Route::resource('student', 'StudentController', ['except' => [
+    'destroy'
+]]);

@@ -55,11 +55,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="email">Kana word:</label>
+                        <label for="kana_edit">Kana word:</label>
                         <input type="text" class="form-control" id="kana_edit">
                     </div>
                     <div class="form-group">
-                        <label for="email">Viet word:</label>
+                        <label for="viet_edit">Viet word:</label>
                         <input type="text" class="form-control" id="viet_edit">
                     </div>
                 </div>
@@ -92,10 +92,15 @@
                             + data.viet_word + "</td><td>"
                             + "<a class='btn btn-primary' onclick='openEditModal(" + data.id + ")'>Edit</a></td></tr>");
                     } else {
-                        alert(data);
+                        alert("Error! Please try again!");
                     }
                 }
-            );
+            ).fail(function (data) {
+                $.each(data.responseJSON, function (i, item) {
+                    alert(item);
+                    return false;
+                });
+            });
         });
 
         $("#deleteBtn").on("click", function (e) {
@@ -113,9 +118,16 @@
                         for (var i = 0; i < ids.length; i++) {
                             $("#row" + ids[i]).hide();
                         }
+                    } else {
+                        alert("Error! Please try again!");
                     }
                 }
-            );
+            ).fail(function (data) {
+                $.each(data.responseJSON, function (i, item) {
+                    alert(item);
+                    return false;
+                });
+            });
         });
 
         function openEditModal(id) {
@@ -144,9 +156,16 @@
                             + data.kanji_word + "</td><td>" + data.kana_word + "</td><td>"
                             + data.viet_word + "</td><td><a class='btn btn-primary' onclick='openEditModal(" + data.id + ")'>Edit</a></td>"
                         )
+                    } else {
+                        alert("Error! Please try again!");
                     }
                 }
-            );
+            ).fail(function (data) {
+                $.each(data.responseJSON, function (i, item) {
+                    alert(item);
+                    return false;
+                });
+            });
         }
     </script>
 @endsection
