@@ -111,9 +111,10 @@ class LessonController extends Controller
      * @param  \App\Repositories\Lesson $lesson
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Lesson $lesson)
+    public function update(Request $request, $id)
     {
-        //
+        $lesson = $this->business->updateLesson($id, $request->all());
+        return response()->json($lesson);
     }
 
     /**

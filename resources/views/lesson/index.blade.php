@@ -157,7 +157,16 @@
                 },
                 function (data, status) {
                     if (status === 'success') {
-                        console.log(data);
+                        $("#row" + data.id).html("<td><input type='checkbox' name='lesson_id' value='"
+                            + data.id + "'></td>" + "<td><a href = '" + "{{route('lesson.index')}}" + "/"
+                            + data.id + "/edit' id='row" + data.id + "_name'>" + data.name + "</a></td><td><a href = '"
+                            + "{{route('lesson.index')}}" + "/ " + data.id + "/edit'>0</a></td><td>"
+                            + "<a href = '" + "{{route('lesson.index')}}" + "/" + data.id + "/edit" + "'  id='row"
+                            + data.id + "_weight'>" + data.weight + "</a></td><td>"
+                            + "<a href='" + "{{route('lesson.index')}}" + "/" + data.id
+                            + "/edit' class='btn btn-info'>Add new words</a>"
+                            + "<a class='btn btn-primary' onclick=openEditModal('" + data.id
+                            + "')>Edit</a>" + "</td>");
                     } else {
                         alert("Error! Please try again!");
                     }

@@ -138,6 +138,15 @@ class Business
         return $vocabulary;
     }
 
+    public function updateLesson($id, array $demands)
+    {
+        $vocabulary = $this->lesson->find($id);
+        $vocabulary->name = $demands['name'];
+        $vocabulary->weight = $demands['weight'];
+        $vocabulary->save();
+        return $vocabulary;
+    }
+
     public function storeNewLesson($name, $weight)
     {
         return $this->lesson->store([
